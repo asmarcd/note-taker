@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-let savedNotes = fs.readFileSync("../db/bd.json", "utf8");
+let savedNotes = fs.readFileSync("../../../db/db.json", "utf8");
 savedNotes = JSON.parse(savedNotes);
 let noteTitle = savedNotes.title;
 let noteText = savedNotes.text;
@@ -10,13 +10,22 @@ module.exports = function (app) {
         return res.json(savedNotes);
     });
 
-    const newNote = {
-        title:noteTitle,
-        text:noteText
-    }
+    app.post("/api/notes", function (req, res) {
 
-    app.post("/api/notes", function(req, res) {
-        fs.writeFileSync (path.join(__dirname, "../db/db.json"), JSON.stringify(newNote, null, 2));
+        const newNote = {
+            title: noteTitle,
+            text: noteText
+        }
+
+        fs.writeFileSync(path.join(__dirname, "../public/assets/db/db.json"), JSON.stringify(newNote, null, 2));
         res.json(newNote)
+    });
+
+    app.delete("/api/notes/:id", function (req, res) {
+        savedNotes.forEach(note => {
+            if (note.id === id) {
+                // Delete the note. Not sure how to do this yet.
+            }
+        })
     })
 }
