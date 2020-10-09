@@ -14,6 +14,15 @@ module.exports = function (app) {
     });
 
     app.post("/api/notes", function (req, res) {
+        
+        for (let i = 0; i < savedNotes.length; i++){
+          savedNotes[i].uniqueId = i+1;
+          req.body.uniqueId = i+2;
+        };
+        
+
+        console.log(savedNotes);
+
         savedNotes.push(req.body);
 
         fs.writeFileSync(path.join(__dirname, "../db/db.json"), JSON.stringify(savedNotes, null, 2));
