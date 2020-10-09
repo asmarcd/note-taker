@@ -16,13 +16,10 @@ module.exports = function (app) {
     app.post("/api/notes", function (req, res) {
         savedNotes.push(req.body);
 
-        const newNoteDatabase = {
-            title: noteTitle,
-            text: noteText
-        }
+        fs.writeFileSync(path.join(__dirname, "../db/db.json"), JSON.stringify(savedNotes, null, 2));
 
-        fs.writeFileSync(path.join(__dirname, "../db/db.json"), JSON.stringify(newNoteDatabase, null, 2));
         res.send("Note added");
+
     });
 
     // app.delete("/api/notes/:id", function (req, res) {

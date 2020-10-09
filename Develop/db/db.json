@@ -1,1 +1,10 @@
-{}
+[
+  {
+    "title": "Hello test",
+    "text": "test test"
+  },
+  {
+    "title": "Test 2",
+    "text": "test two"
+  }
+]
