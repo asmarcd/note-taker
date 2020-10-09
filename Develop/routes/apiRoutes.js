@@ -21,7 +21,7 @@ module.exports = function (app) {
             text: noteText
         }
 
-        fs.writeFileSync(path.join(__dirname, "../../../db/db.json"), JSON.stringify(newNoteDatabase, null, 2));
+        fs.writeFileSync(path.join(__dirname, "../db/db.json"), JSON.stringify(newNoteDatabase, null, 2));
         res.send("Note added");
     });
 
