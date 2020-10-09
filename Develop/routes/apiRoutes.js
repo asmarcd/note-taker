@@ -1,27 +1,35 @@
 const fs = require("fs");
+const path = require("path");
 
-let readSavedNotes = fs.readFileSync("../../../db/db.json", "utf8");
+let savedNotes = fs.readFileSync("../../../db/db.json", "utf8");
 savedNotes = JSON.parse(savedNotes);
+
 let noteTitle = savedNotes.title;
 let noteText = savedNotes.text;
 
-let writeSavedNotes =  fs.writeFileSync(path.join(__dirname, "../../../db/db.json"));
 
 module.exports = function (app) {
     app.get("/api/notes", function (req, res) {
-        return res.json(readSavedNotes);
+        res.json(savedNotes);
     });
 
     app.post("/api/notes", function (req, res) {
-        JSON.stringify(writeSavedNotes, null, 2);
-        return res.json(writeSavedNotes);
+        savedNotes.push(req.body);
+
+        const newNoteDatabase = {
+            title: noteTitle,
+            text: noteText
+        }
+
+        fs.writeFileSync(path.join(__dirname, "../../../db/db.json"), JSON.stringify(newNoteDatabase, null, 2));
+        res.send("Note added");
     });
 
-    app.delete("/api/notes/:id", function (req, res) {
-        savedNotes.forEach(note => {
-            if (note.id === id) {
-                // Delete the note. Not sure how to do this yet.
-            }
-        })
-    })
+    // app.delete("/api/notes/:id", function (req, res) {
+    //     savedNotes.forEach(note => {
+    //         if (note.id === id) {
+    //             // Delete the note. Not sure how to do this yet.
+    //         }
+    //     })
+    // })
 }
