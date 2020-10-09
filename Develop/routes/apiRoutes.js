@@ -1,24 +1,20 @@
 const fs = require("fs");
 
-let savedNotes = fs.readFileSync("../../../db/db.json", "utf8");
+let readSavedNotes = fs.readFileSync("../../../db/db.json", "utf8");
 savedNotes = JSON.parse(savedNotes);
 let noteTitle = savedNotes.title;
 let noteText = savedNotes.text;
 
+let writeSavedNotes =  fs.writeFileSync(path.join(__dirname, "../../../db/db.json"));
+
 module.exports = function (app) {
     app.get("/api/notes", function (req, res) {
-        return res.json(savedNotes);
+        return res.json(readSavedNotes);
     });
 
     app.post("/api/notes", function (req, res) {
-
-        const newNote = {
-            title: noteTitle,
-            text: noteText
-        }
-
-        fs.writeFileSync(path.join(__dirname, "../public/assets/db/db.json"), JSON.stringify(newNote, null, 2));
-        res.json(newNote)
+        JSON.stringify(writeSavedNotes, null, 2);
+        return res.json(writeSavedNotes);
     });
 
     app.delete("/api/notes/:id", function (req, res) {
