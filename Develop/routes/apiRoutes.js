@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 // This sets a variable for our saved notes array, allowing us to access and edit it throughout the rest of the file:
-let savedNotes = fs.readFileSync("../../../db/db.json", "utf8");
+let savedNotes = fs.readFileSync("./db/db.json", "utf8");
 savedNotes = JSON.parse(savedNotes);
 
 module.exports = function (app) {
